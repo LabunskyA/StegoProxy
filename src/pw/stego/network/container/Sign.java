@@ -8,17 +8,29 @@ import java.util.Arrays;
  */
 public class Sign {
     private final byte[] value;
+    private final byte[] copy;
+
+    private final int hash;
 
     public Sign(byte[] value) {
         this.value = new byte[value.length];
+        this.copy = new byte[value.length];
+
         System.arraycopy(value, 0, this.value, 0, value.length);
+        System.arraycopy(value, 0, this.copy, 0, value.length);
+
+        hash = Arrays.hashCode(value);
     }
 
     /**
      * @return copy of sign bytes (for security reasons)
      */
     public byte[] getValue() {
-        return Arrays.copyOf(value, value.length);
+        if (Arrays.hashCode(copy) == hash)
+            return copy;
+
+        System.arraycopy(value, 0, copy, 0, value.length);
+        return copy;
     }
 
     @Override
