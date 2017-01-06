@@ -5,10 +5,8 @@ import pw.stego.network.container.steganography.Steganography;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 /**
  * StegoTunnel
@@ -17,15 +15,14 @@ import java.util.List;
  * Created by lina on 20.12.16.
  */
 public abstract class Tunnel<T, S extends Steganography> {
-    protected final Sign sign;
+    final Sign sign;
 
-    protected final T connection;
-    protected final S algo;
+    final T connection;
+    final S algo;
 
-    private int cursor = 0;
-    private List<File> filePool = new LinkedList<>();
+    private Queue<File> filePool = new LinkedList<>();
 
-    protected Tunnel(Sign sign, T connection, S algo) {
+    Tunnel(Sign sign, T connection, S algo) {
         this.sign = sign;
         this.connection = connection;
         this.algo = algo;
@@ -35,26 +32,17 @@ public abstract class Tunnel<T, S extends Steganography> {
     abstract public byte[] receive() throws IOException;
     abstract public void close() throws IOException;
 
-    protected File getNextContainer() {
+    File getNextContainer() {
         if (filePool.size() == 0)
             throw new ArrayIndexOutOfBoundsException("No containers provided");
 
-        if (filePool.size() > cursor)
-            return filePool.get(cursor++);
-
-        return filePool.get(cursor = 0);
+        return filePool.poll();
     }
 
     public void addContainers(File... files) {
         for (File file : files)
-            if (algo.isAcceptableContainer(file)) try {
-                Path temp = Files.createTempFile(file.getName(), "");
-                Files.write(temp, Files.readAllBytes(file.toPath()));
-
-                filePool.add(temp.toFile());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            if (algo.isAcceptableContainer(file))
+                filePool.add(file);
     }
 
     public int getPoolSize() {
