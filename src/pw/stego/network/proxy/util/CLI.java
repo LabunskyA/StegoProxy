@@ -14,6 +14,8 @@ public class CLI {
         System.out.println("stego - lossless image steganography;");
         System.out.println("nostego - raw files without steganography;");
 
+        System.out.println();
+
         System.out.println("Available container factories:");
         System.out.println("randompngfactory - random pngs as containers;");
         System.out.println("emptyfilesfactory - empty container files");
