@@ -2,7 +2,13 @@
 Java library and application to create staganography proxy connections over the Internet.
 
 # Usage
-Simply download client and/or server .jar files from releases page and run them with JRE 8+
+Simply download client and/or server .jar files from releases page and run them with JRE 8+.
+
+At you client machine you should use steganography ProxyClient.jar as proxy server.
+It will incapsulate your data into steganography channel and send it to server with proxy server.
+
+ProxyServer.jar shuold be running at external server and connected to real proxy server, like Squid.
+It will receive incapsulated data, decode and retranslate in to real proxy so it could reach real destination.
 
 # Contribute
 You can create your own steganography algorithms and containers factories. 
