@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Stego lib wrapper
  * Created by lina on 01.01.17.
  */
 public class Stego implements Steganography {

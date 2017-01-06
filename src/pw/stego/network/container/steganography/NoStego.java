@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
+ * Not a steganography, just for testing
  * Created by lina on 26.12.16.
  */
 public class NoStego implements Steganography {
