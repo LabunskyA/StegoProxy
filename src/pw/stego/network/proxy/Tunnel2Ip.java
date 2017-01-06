@@ -3,9 +3,9 @@ package pw.stego.network.proxy;
 import pw.stego.network.container.Sign;
 import pw.stego.network.container.steganography.Steganography;
 import pw.stego.network.container.util.ContainerFactory;
-import pw.stego.network.container.util.RandomPNGFactory;
 import pw.stego.network.proxy.tunnel.SocketTunnel;
 import pw.stego.network.proxy.tunnel.Tunnel;
+import pw.stego.network.proxy.util.CLI;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import java.net.Socket;
  * Created by lina on 26.12.16.
  */
 public class Tunnel2Ip extends Proxy {
-    Tunnel2Ip(String ipOut, int portOut, int portIn, ContainerFactory factory) throws IOException {
+    public Tunnel2Ip(String ipOut, int portOut, int portIn, ContainerFactory factory) throws IOException {
         super(factory, new ServerSocket(portIn), ipOut, portOut);
     }
 
@@ -71,20 +71,30 @@ public class Tunnel2Ip extends Proxy {
     }
 
     public static void main(String[] args) throws IOException {
-        ContainerFactory factory;
-        switch (args[4]) {
-            case "RandomPNGFactory":
-                factory = new RandomPNGFactory();
-                break;
+        if (args.length < 4) {
+            System.out.println("Usage: \"java -jar StegoServer.jar " +
+                    "[port to accept connections] " +
+                    "[real proxy server address] " +
+                    "[steganography algorithm]" +
+                    "[container factory]\"");
+            System.out.println();
 
-            default:
-                return;
+            CLI.help();
+
+            System.out.println();
+            System.out.println("Example: \"java -jar StegoServer.jar 6000 192.168.1.1:6000 stego randompngfactory\"");
+            System.out.println("It will launch steganography proxy port 6000 to real proxy server on 192.168.1.1 on port 6000");
         }
 
+        ContainerFactory factory = CLI.getContainerFactory(args[3]);
+        if (factory == null)
+            return;
+
+        String[] proxyAddr = args[1].split(":");
         Proxy proxy = new Tunnel2Ip(
-                args[0],
-                Integer.parseInt(args[1]),
-                Integer.parseInt(args[2]),
+                proxyAddr[0],
+                Integer.parseInt(proxyAddr[1]),
+                Integer.parseInt(args[0]),
                 factory
         );
 
