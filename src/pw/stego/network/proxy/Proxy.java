@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -19,8 +18,8 @@ import java.util.Random;
  * Created by lina on 06.01.17.
  */
 public abstract class Proxy {
-    protected static final int BUFF_SIZE = 2048;
-    protected static final String[] params = new String[]{"", ""};
+    private static final int BUFF_SIZE = 2048;
+    private static final String[] params = new String[]{"", ""};
 
     static {
         Random r = new Random();
@@ -45,17 +44,30 @@ public abstract class Proxy {
         this.portOut = portOut;
     }
 
+    /**
+     * Accepts client with algo and sign
+     * @param algo to use in communication
+     * @param sign to use to extract data
+     */
     public abstract void accept(Steganography algo, Sign sign) throws IOException;
 
+    /**
+     * Accepting clients forever
+     * @param algoName algorithm name string
+     * @param sign to use to extract data
+     * @throws IOException on accept failure
+     */
     void start(String algoName, Sign sign) throws IOException {
+        algoName = algoName.toLowerCase();
+
         while (true) {
             Steganography algo;
             switch (algoName) {
-                case "Stego":
+                case "stego":
                     algo = new Stego();
                     break;
 
-                case "NoStego":
+                case "nostego":
                     algo = new NoStego();
                     break;
 

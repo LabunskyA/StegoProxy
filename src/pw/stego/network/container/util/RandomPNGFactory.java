@@ -14,6 +14,9 @@ import java.nio.file.Files;
 public class RandomPNGFactory implements ContainerFactory {
     private final static String IMG_URL = "http://lorempixel.com/%X/%Y/";
 
+    /**
+     * @param params contains image resolution in int format in first two elements
+     */
     public File getContainer(String[] params) throws IOException {
         BufferedImage image = null;
         while (image == null)
