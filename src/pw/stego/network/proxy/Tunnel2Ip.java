@@ -101,6 +101,6 @@ public class Tunnel2Ip extends Proxy {
         );
 
         System.out.print("Enter password: ");
-        proxy.start(args[3], new Sign(new String(System.console().readPassword()).getBytes()));
+        proxy.start(args[2], new Sign(new String(System.console().readPassword()).getBytes()));
     }
 }
