@@ -2,17 +2,31 @@
 Java library and application to create staganography proxy connections over the Internet.
 
 # Usage
-Simply download client and/or server .jar files from releases page and run them with JRE 8+. It will print you what to do next.
+Simply download client and/or server .jar files from releases page and run them with java 8 or later. <br>
+Run it without arguments if you want to know what to do next.
 
-At you client machine you should use steganography ProxyClient.jar as proxy server.
-It will incapsulate your data into steganography channel and send it to server with proxy server.
+At you client machine you should use steganography <b>ProxyClient.jar</b> as proxy server. <br>
+It incapsulates your data into steganography channel and sends it to server with proxy server.
 
-ProxyServer.jar should be running at external server and connected to real proxy server, like Squid.
-It will receive incapsulated data, decode and retranslate in to real proxy so it could reach real destination.
+<b>ProxyServer.jar</b> should be running at external server and connected to real proxy server, like Squid. <br>
+It receives incapsulated data, decodes and retranslates in to real proxy, so data could reach it's real destination.
+
+# How it works
+<b>StegoProxy</b> is consisted of ProxyServer and ProxyClient modules.
+
+<b>ProxyClient</b> is client-side of StegoProxy. <br>
+You can interract with it like with any other proxies.
+It sends any incoming data throught steganography chanel to ProxyServer.
+
+<b>StegoServer</b> is server-side of StegoProxy. <br> 
+It automaticaly interracting with incoming steganography data and resending it to Real Proxy (like Squid).
+
+<b>The scheme:</b> <br>
+Browser (or any other app) ---> ProxyClient [--->] ProxyServer --> Real Proxy
 
 # Contribute
-You can create your own steganography algorithms and containers factories. 
-All you need is to implement Steganography and ContainerFactory interfaces.
+You can create your own steganography algorithms and containers factories. <br>
+All you need is to implement <b><a href="https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/steganography/Steganography.java">Steganography</a></b> and <b><a href="https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/util/ContainerFactory.java">ContainerFactory</a></b> interfaces.
 
 I'll be glad to see your pull requests!
 
