@@ -13,13 +13,13 @@ import java.nio.file.Files;
  * Random PNG containers
  * Created by lina on 05.01.17.
  */
-public class RandomPNGFactory implements ContainerFactory {
+public class LorempixelPNGFactory implements ContainerFactory {
     private final static String IMG_URL = "http://lorempixel.com/%X/%Y/";
 
     /**
      * @param params contains image resolution in int format in first two elements
      */
-    public File getContainer(String[] params) throws IOException {
+    public File createContainer(String[] params) throws IOException {
         BufferedImage image = null;
         while (image == null)
             image = ImageIO.read(new URL(IMG_URL

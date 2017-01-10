@@ -84,7 +84,7 @@ public abstract class Proxy {
             while ((count = from.read(request)) != -1) {
                 if (count == request.length) {
                     System.out.println(Arrays.toString(to.getAlgorithm().getOptimalContainerParams(request)));
-                    to.addContainers(factory.getContainer(to.getAlgorithm().getOptimalContainerParams(request)));
+                    to.addContainers(factory.createContainer(to.getAlgorithm().getOptimalContainerParams(request)));
                     to.send(request);
 
                 } else {
@@ -92,7 +92,7 @@ public abstract class Proxy {
                     byte[] msg = new byte[count];
                     System.arraycopy(request, 0, msg, 0, count);
 
-                    to.addContainers(factory.getContainer(to.getAlgorithm().getOptimalContainerParams(msg)));
+                    to.addContainers(factory.createContainer(to.getAlgorithm().getOptimalContainerParams(msg)));
                     to.send(msg);
                 }
             }

@@ -1,7 +1,5 @@
 package pw.stego.network.container.factory;
 
-import pw.stego.network.container.factory.ContainerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +10,7 @@ import java.nio.file.Files;
  */
 public class EmptyFilesFactory implements ContainerFactory {
     @Override
-    public File getContainer(String[] params) throws IOException {
+    public File createContainer(String[] params) throws IOException {
         File container = Files.createTempFile("empty", "").toFile();
         Files.write(container.toPath(), new byte[0]);
 

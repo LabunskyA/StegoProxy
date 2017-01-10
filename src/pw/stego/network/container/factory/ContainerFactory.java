@@ -13,5 +13,5 @@ public interface ContainerFactory {
      * @return container file
      * @throws IOException on file creation error
      */
-    File getContainer(String[] params) throws IOException;
+    File createContainer(String[] params) throws IOException;
 }

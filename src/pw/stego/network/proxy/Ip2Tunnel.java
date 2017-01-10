@@ -80,8 +80,9 @@ public class Ip2Tunnel extends Proxy {
             CLI.help();
 
             System.out.println();
-            System.out.println("Example: \"java -jar StegoClient.jar 6000 192.168.1.1:6000 stego randompngfactory\"");
-            System.out.println("It will launch proxy on port 6000 to steganography proxy server on 192.168.1.1 on port 6000");
+            System.out.println("Example: \"java -jar StegoClient.jar 6000 192.168.1.1:6000 stego lorempixelpng\"");
+            System.out.println("It will launch proxy on port 6000 to steganography proxy server on 192.168.1.1 " +
+                    "on port 6000 and will use Stego algorithm with lorempixel's png as containers");
 
             return;
         }

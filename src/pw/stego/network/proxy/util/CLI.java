@@ -2,7 +2,7 @@ package pw.stego.network.proxy.util;
 
 import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.container.factory.EmptyFilesFactory;
-import pw.stego.network.container.factory.RandomPNGFactory;
+import pw.stego.network.container.factory.LorempixelPNGFactory;
 
 /**
  * Command Line Interface
@@ -17,14 +17,14 @@ public class CLI {
         System.out.println();
 
         System.out.println("Available container factories:");
-        System.out.println("randompngfactory - random pngs as containers;");
+        System.out.println("lorempixelpng - random PNGs from lorempixel.com;");
         System.out.println("emptyfilesfactory - empty container files");
     }
 
     public static ContainerFactory getContainerFactory(String name) {
         switch (name.toLowerCase()) {
-            case "randompngfactory":
-                return new RandomPNGFactory();
+            case "lorempixelpng":
+                return new LorempixelPNGFactory();
 
             case "emptyfilesfactory":
                 return new EmptyFilesFactory();
