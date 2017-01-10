@@ -51,9 +51,11 @@ public class Stego implements Steganography {
      */
     @Override
     public String[] getOptimalContainerParams(byte[] message) {
-        int dim = (int) Math.sqrt(message.length * 4);
+        int blocks = message.length * 4;
+
+        int dim = (int) Math.sqrt(blocks);
         dim += r.nextInt(dim);
 
-        return new String[]{String.valueOf(dim), String.valueOf(message.length * 4 / dim + r.nextInt(dim))};
+        return new String[]{String.valueOf(dim), String.valueOf(blocks / dim + blocks * 4 % dim + r.nextInt(dim))};
     }
 }
