@@ -11,26 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Random;
+import java.util.Arrays;
 
 /**
  * Proxy class
  * Created by lina on 06.01.17.
  */
 public abstract class Proxy {
-    private static final int BUFF_SIZE = 2048;
-    private static final String[] params = new String[]{"", ""};
-
-    static {
-        Random r = new Random();
-
-        int dim = (int) Math.sqrt(BUFF_SIZE * 4);
-        dim += r.nextInt(dim);
-
-        params[0] = String.valueOf(dim);
-        params[1] = String.valueOf(BUFF_SIZE * 4 / dim + r.nextInt(dim));
-    }
-
     private final ContainerFactory factory;
     final ServerSocket acceptor;
 
@@ -80,6 +67,8 @@ public abstract class Proxy {
     }
 
     abstract class ProxyWorker extends Thread {
+        private static final int BUFF_SIZE = 2048;
+
         final Socket s;
         final Tunnel t;
 
@@ -93,14 +82,19 @@ public abstract class Proxy {
 
             int count;
             while ((count = from.read(request)) != -1) {
-                to.addContainers(factory.getContainer(params));
+                if (count == request.length) {
+                    System.out.println(Arrays.toString(to.getAlgorithm().getOptimalContainerParams(request)));
+                    to.addContainers(factory.getContainer(to.getAlgorithm().getOptimalContainerParams(request)));
+                    to.send(request);
 
-                if (count < request.length) {
+                } else {
+
                     byte[] msg = new byte[count];
                     System.arraycopy(request, 0, msg, 0, count);
 
+                    to.addContainers(factory.getContainer(to.getAlgorithm().getOptimalContainerParams(msg)));
                     to.send(msg);
-                } else to.send(request);
+                }
             }
         }
     }

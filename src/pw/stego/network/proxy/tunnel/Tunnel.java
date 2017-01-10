@@ -48,4 +48,7 @@ public abstract class Tunnel<T, S extends Steganography> {
     public int getPoolSize() {
         return filePool.size();
     }
+    public Steganography getAlgorithm() {
+        return algo;
+    }
 }
