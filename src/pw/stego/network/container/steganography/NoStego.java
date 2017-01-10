@@ -12,8 +12,6 @@ import java.nio.file.Files;
  * Created by lina on 26.12.16.
  */
 public class NoStego implements Steganography {
-    private Pair<File, byte[]> cache;
-
     @Override
     public Boolean isSignedWith(Sign sign, File container) {
         return true;
@@ -44,5 +42,10 @@ public class NoStego implements Steganography {
         }
 
         return container;
+    }
+
+    @Override
+    public String[] getOptimalContainerParams(byte[] message) {
+        return new String[]{String.valueOf(message.length)};
     }
 }

@@ -42,4 +42,15 @@ public interface Steganography {
      * @return container
      */
     File insert(Sign sign, byte[] message, File container) throws IOException;
+
+    /**
+     * Returns optimal container parameters which will be used to create container with ContainerFactory
+     * @param message to insert into container
+     * @return String array or parameters. Strings class is used because it can really represent anything.
+     * Please notice, that array format should be associated with at least one ContainerFactory.
+     *
+     * If you don't want to implement it or ContainerFactory you're planning to use doesn't require
+     * special parameters, just return empty array from this function.
+     */
+    String[] getOptimalContainerParams(byte[] message);
 }

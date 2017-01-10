@@ -5,12 +5,15 @@ import pw.stego.network.container.util.FileMagic;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Stego lib wrapper
  * Created by lina on 01.01.17.
  */
 public class Stego implements Steganography {
+    private Random r = new Random();
+
     @Override
     public Boolean isSignedWith(Sign sign, File container) {
         try {
@@ -40,5 +43,17 @@ public class Stego implements Steganography {
     @Override
     public File insert(Sign sign, byte[] message, File container) throws IOException {
         return pw.Stego.encode(sign.getValue(), message, pw.stego.util.Patterns.Type.SIMPLE, container);
+    }
+
+    /**
+     * @param message to insert into container
+     * @return {X, Y} - image size
+     */
+    @Override
+    public String[] getOptimalContainerParams(byte[] message) {
+        int dim = (int) Math.sqrt(message.length * 4);
+        dim += r.nextInt(dim);
+
+        return new String[]{String.valueOf(dim), String.valueOf(message.length * 4 / dim + r.nextInt(dim))};
     }
 }
