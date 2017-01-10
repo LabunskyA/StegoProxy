@@ -2,7 +2,7 @@ package pw.stego.network.proxy;
 
 import pw.stego.network.container.Sign;
 import pw.stego.network.container.steganography.Steganography;
-import pw.stego.network.container.util.ContainerFactory;
+import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.proxy.tunnel.SocketTunnel;
 import pw.stego.network.proxy.tunnel.Tunnel;
 import pw.stego.network.proxy.util.CLI;

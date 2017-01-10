@@ -1,4 +1,6 @@
-package pw.stego.network.container.util;
+package pw.stego.network.container.factory;
+
+import pw.stego.network.container.factory.ContainerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

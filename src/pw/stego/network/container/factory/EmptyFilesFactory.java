@@ -1,4 +1,6 @@
-package pw.stego.network.container.util;
+package pw.stego.network.container.factory;
+
+import pw.stego.network.container.factory.ContainerFactory;
 
 import java.io.File;
 import java.io.IOException;
