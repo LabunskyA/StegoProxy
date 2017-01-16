@@ -28,6 +28,8 @@ public class Tunnel2Ip extends Proxy {
                 new Socket(ipOut, portOut),
                 new SocketTunnel<>(sign, algo, acceptor.accept())
         ).start();
+
+        System.out.println("["+CLI.getTimestamp()+"] New incoming connection accepted!");
     }
 
     private class Worker extends ProxyWorker {
@@ -67,6 +69,8 @@ public class Tunnel2Ip extends Proxy {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            System.out.println("["+CLI.getTimestamp()+"] Closed connection on " + t);
         }
     }
 

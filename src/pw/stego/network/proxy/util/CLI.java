@@ -4,6 +4,9 @@ import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.container.factory.EmptyFilesFactory;
 import pw.stego.network.container.factory.LorempixelPNGFactory;
 
+import java.sql.Timestamp;
+
+
 /**
  * Command Line Interface
  * Created by lina on 06.01.17.
@@ -33,5 +36,9 @@ public class CLI {
                 System.out.println("Wrong factory");
                 return null;
         }
+    }
+
+    public static Timestamp getTimestamp() {
+        return new Timestamp(System.currentTimeMillis());
     }
 }

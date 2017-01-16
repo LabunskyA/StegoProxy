@@ -51,4 +51,9 @@ public abstract class Tunnel<T, S extends Steganography> {
     public Steganography getAlgorithm() {
         return algo;
     }
+
+    @Override
+    public String toString() {
+        return connection.toString();
+    }
 }

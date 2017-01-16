@@ -6,6 +6,7 @@ import pw.stego.network.container.steganography.Steganography;
 import pw.stego.network.container.steganography.Stego;
 import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.proxy.tunnel.Tunnel;
+import pw.stego.network.proxy.util.CLI;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,6 +48,14 @@ public abstract class Proxy {
     void start(String algoName, Sign sign) throws IOException {
         algoName = algoName.toLowerCase();
 
+        System.out.println(
+                "["+ CLI.getTimestamp()+"] " +
+                "Starting proxy on port " + acceptor.getLocalPort() + " " +
+                "to " + ipOut+":"+portOut+" " +
+                "using " + factory + " factory " +
+                "and " + algoName + " steganography algorithm"
+        );
+
         while (true) {
             Steganography algo;
             switch (algoName) {
@@ -83,7 +92,6 @@ public abstract class Proxy {
             int count;
             while ((count = from.read(request)) != -1) {
                 if (count == request.length) {
-                    System.out.println(Arrays.toString(to.getAlgorithm().getOptimalContainerParams(request)));
                     to.addContainers(factory.createContainer(to.getAlgorithm().getOptimalContainerParams(request)));
                     to.send(request);
 

@@ -33,4 +33,9 @@ public class LorempixelPNGFactory implements ContainerFactory {
 
         throw new IOException("Failed to write image");
     }
+
+    @Override
+    public String toString() {
+        return "lorempixelpng";
+    }
 }
