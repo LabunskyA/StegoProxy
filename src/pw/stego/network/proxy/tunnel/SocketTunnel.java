@@ -19,6 +19,7 @@ public class SocketTunnel<S extends Steganography> extends Tunnel<Socket, S> {
 
     public SocketTunnel(Sign sign, S algo, String ipOut, int portOut) throws IOException {
         super(sign, new Socket(ipOut, portOut), algo);
+        connection.setSoTimeout(1000 * 60);
 
         is = new DataInputStream(connection.getInputStream());
         os = new DataOutputStream(connection.getOutputStream());
@@ -55,16 +56,19 @@ public class SocketTunnel<S extends Steganography> extends Tunnel<Socket, S> {
 
         Files.write(container.toPath(), data);
 
-        byte[] extracted = new byte[0];
-//        if (algo.isAcceptableContainer(container))
-        if (algo.isSignedWith(sign, container))
-            extracted = algo.extract(sign, container);
+        if (!algo.isSignedWith(sign, container))
+            throw new IOException("Wrong signature");
 
-        return extracted;
+        return algo.extract(sign, container);
     }
 
     @Override
     public void close() throws IOException {
         connection.close();
+    }
+
+    @Override
+    public String toString() {
+        return connection.getInetAddress()+":"+connection.getPort();
     }
 }
