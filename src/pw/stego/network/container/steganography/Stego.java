@@ -56,6 +56,6 @@ public class Stego implements Steganography {
         int dim = (int) Math.sqrt(blocks);
         dim += r.nextInt(dim);
 
-        return new String[]{String.valueOf(dim), String.valueOf(blocks / dim + blocks * 4 % dim + r.nextInt(dim))};
+        return new String[]{String.valueOf(dim), String.valueOf(blocks / dim + blocks % dim + r.nextInt(dim) + 1)};
     }
 }
