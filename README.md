@@ -22,7 +22,7 @@ It sends any incoming data throught steganography chanel to ProxyServer.
 It automaticaly interracting with incoming steganography data and resending it to Real Proxy (like Squid).
 
 <b>The scheme:</b> <br>
-Browser (or any other app) ---> ProxyClient [--->] ProxyServer --> Real Proxy
+Browser (or any other app) <---> ProxyClient [<--->] ProxyServer <---> Real Proxy
 
 # Contribute
 You can create your own steganography algorithms and containers factories. <br>
@@ -36,8 +36,6 @@ You can help or thank me with developing it in several ways:
   <li><a href="https://www.paypal.me/labunsky">PayPal</a></li>
   <li><a href="https://qiwi.me/stegoproxy">QIWI</a></li>
   <li>BTC: 3PKGGwo5Ke2zm1yiBnuowZLEbmawz9YpJ8</li>
-  <li>LTC: LLSdGK7Y8fWHpC833SufMqqF4HcpU5nXVP</li>
   <li>ETH: 0x332b2f5e23e5f9e89d7531d7e5e95a7616ec8bb0</li>
   <li>DOGE: DNpFyA9jSQYJyVYfLKetdNufYFgLimVezK</li>
-  <li>XMR: 4AbP6jGakTXMvqZYkqDGWLhssFwHmRXQ5QNWCMH4hMWEckj3sU7949qd2PrzpawBQpD38VkcMTXqNf46HPFU4YZzH5vetQa</li>
 <ul>
