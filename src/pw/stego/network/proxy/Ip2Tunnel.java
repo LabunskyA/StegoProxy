@@ -6,12 +6,15 @@ import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.proxy.tunnel.SocketTunnel;
 import pw.stego.network.proxy.tunnel.Tunnel;
 import pw.stego.network.proxy.util.CLI;
+import pw.stego.network.proxy.util.Config;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Class to redirect traffic from port to tunnel
@@ -68,44 +71,40 @@ public class Ip2Tunnel extends Proxy {
                 e.printStackTrace();
             }
 
-            System.out.println(
-                    "["+CLI.getTimestamp()+"] Closed connection  on " + s.getInetAddress()+":"+s.getPort()
-            );
+            System.out.println("["+CLI.getTimestamp()+"] Closed connection on " + s.getInetAddress()+":"+s.getPort());
         }
     }
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 4) {
-            System.out.println("Usage: \"java -jar StegoClient.jar " +
-                    "[port to accept connections] " +
-                    "[steganography proxy server address] " +
-                    "[steganography algorithm] " +
-                    "[container factory]\"");
-            System.out.println();
+        if (args.length > 1) for (String arg : args)
+            if (CLI.process(arg))
+                return;
 
-            CLI.help();
+        Path confPath;
+        if (args.length == 1) {
+            confPath = Paths.get(args[0]);
+        } else {
+            String localPath = Tunnel2Ip.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            localPath = localPath.substring(0, localPath.lastIndexOf("/") + 1);
 
-            System.out.println();
-            System.out.println("Example: \"java -jar StegoClient.jar 6000 192.168.1.1:6000 stego lorempixelpng\"");
-            System.out.println("It will launch proxy on port 6000 to steganography proxy server on 192.168.1.1 " +
-                    "on port 6000 and will use Stego algorithm with lorempixel's png as containers");
-
-            return;
+            confPath = Paths.get(localPath + "config/Client.conf");
         }
 
-        ContainerFactory factory = CLI.getContainerFactory(args[3]);
+        Config config = new Config(confPath);
+
+        ContainerFactory factory = Config.factoryByName(config.getValue(Config.FACTORY));
         if (factory == null)
             return;
 
-        String[] proxyAddr = args[1].split(":");
+        String[] proxyAddr = config.getValue(Config.DESTINATION).split(":");
         Proxy proxy = new Ip2Tunnel(
-                Integer.parseInt(args[0]),
+                Integer.parseInt(config.getValue(Config.ACCEPTOR_PORT)),
                 factory,
                 proxyAddr[0],
                 Integer.parseInt(proxyAddr[1])
         );
 
         System.out.print("Enter password: ");
-        proxy.start(args[2], new Sign(new String(System.console().readPassword()).getBytes()));
+        proxy.start(config.getValue(Config.ALGO), new Sign(new String(System.console().readPassword()).getBytes()));
     }
 }

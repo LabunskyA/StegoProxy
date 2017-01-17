@@ -1,5 +1,9 @@
 package pw.stego.network.proxy.util;
 
+import pw.stego.network.container.factory.ContainerFactory;
+import pw.stego.network.container.factory.EmptyFilesFactory;
+import pw.stego.network.container.factory.LorempixelPNGFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +16,27 @@ import java.util.Map;
  * Created by lina on 17.01.17.
  */
 public class Config {
+    public static final String ALGO = "algorithm";
+    public static final String TUNNEL = "tunnel";
+    public static final String DESTINATION = "destination";
+    public static final String FACTORY = "container_factory";
+    public static final String ACCEPTOR = "acceptor";
+    public static final String ACCEPTOR_PORT = "acceptor_port";
+
+    public static ContainerFactory factoryByName(String name) {
+        switch (name.toLowerCase()) {
+            case "lorempixelpng":
+                return new LorempixelPNGFactory();
+
+            case "emptyfilesfactory":
+                return new EmptyFilesFactory();
+
+            default:
+                System.out.println("Wrong factory");
+                return null;
+        }
+    }
+
     private Map<String, String> options = new HashMap<>();
 
     /**
