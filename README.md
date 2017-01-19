@@ -3,7 +3,7 @@ Java library and application to create staganography proxy connections over the 
 
 # Usage
 Simply download client and/or server .jar files from releases page and run them with java 8 or later. <br>
-Run it without arguments if you want to know what to do next.
+Use -h or --help keys for more info.
 
 At you client machine you should use steganography <b>ProxyClient.jar</b> as proxy server. <br>
 It incapsulates your data into steganography channel and sends it to server with proxy server.
