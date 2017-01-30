@@ -1,7 +1,8 @@
 package pw.stego.network.container.util;
 
-import java.io.File;
-import java.io.IOException;
+import org.junit.Test;
+
+import java.io.*;
 import java.nio.file.Files;
 
 /**
@@ -12,7 +13,9 @@ public class FileMagic {
     public static String getFileFormat(File file) {
         byte[] magic = new byte[4];
         try {
-            System.arraycopy(Files.readAllBytes(file.toPath()), 0, magic, 0, 4);
+            FileInputStream fis = new FileInputStream(file);
+            if (fis.read(magic) != magic.length)
+                throw new IOException("Read not expected bytes count");
         } catch (IOException e) {
             e.printStackTrace();
             return "";
