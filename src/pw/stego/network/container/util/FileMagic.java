@@ -12,8 +12,7 @@ import java.nio.file.Files;
 public class FileMagic {
     public static String getFileFormat(File file) {
         byte[] magic = new byte[4];
-        try {
-            FileInputStream fis = new FileInputStream(file);
+        try (FileInputStream fis = new FileInputStream(file)) {
             if (fis.read(magic) != magic.length)
                 throw new IOException("Read not expected bytes count");
         } catch (IOException e) {
