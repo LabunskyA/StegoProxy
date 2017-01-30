@@ -2,7 +2,8 @@ package pw.stego.network.proxy.util;
 
 import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.container.factory.EmptyFilesFactory;
-import pw.stego.network.container.factory.LorempixelPNGFactory;
+import pw.stego.network.container.factory.png.LoremPixelPNG;
+import pw.stego.network.container.factory.png.PhotoNetRandomPNG;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,8 +26,11 @@ public class Config {
 
     public static ContainerFactory factoryByName(String name) {
         switch (name.toLowerCase()) {
+            case "photonetrandompng":
+                return new PhotoNetRandomPNG();
+
             case "lorempixelpng":
-                return new LorempixelPNGFactory();
+                return new LoremPixelPNG();
 
             case "emptyfilesfactory":
                 return new EmptyFilesFactory();

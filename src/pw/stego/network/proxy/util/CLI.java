@@ -11,13 +11,14 @@ public class CLI {
     public static boolean process(String arg) {
         arg = arg.toLowerCase().replaceAll("[^a-z]", "");
         switch (arg) {
-            case "printHelp":
+            case "help":
             case "h":
                 printHelp();
                 return true;
 
             case "format":
             case "fmt":
+            case "f":
                 printConfFormat();
                 return true;
         }
@@ -58,6 +59,7 @@ public class CLI {
 
         System.out.println("\"container_factory\" - factory which will produce containers to transmit data through tunnel.");
         System.out.println("Depends on \"algorithm\" variable, should produce compatible containers. Available factories:");
+        System.out.println("photonetrandompng - random png images from photo.net;");
         System.out.println("lorempixelpng - random png images from lorempixel.com;");
         System.out.println("emptyfilesfactory - empty files in system temp folder;");
     }
