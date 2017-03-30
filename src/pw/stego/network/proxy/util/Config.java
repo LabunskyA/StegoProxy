@@ -3,7 +3,7 @@ package pw.stego.network.proxy.util;
 import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.container.factory.EmptyFilesFactory;
 import pw.stego.network.container.factory.png.LoremPixelPNG;
-import pw.stego.network.container.factory.png.PhotoNetRandomPNG;
+import pw.stego.network.container.factory.png.RandomPNG;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,8 +26,8 @@ public class Config {
 
     public static ContainerFactory factoryByName(String name) {
         switch (name.toLowerCase()) {
-            case "photonetrandompng":
-                return new PhotoNetRandomPNG();
+            case "randompng":
+                return new RandomPNG();
 
             case "lorempixelpng":
                 return new LoremPixelPNG();

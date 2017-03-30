@@ -1,10 +1,11 @@
 package pw.stego.network.proxy;
 
 import pw.stego.network.container.Sign;
+import pw.stego.network.container.factory.ContainerFactory;
+import pw.stego.network.container.steganography.BarcodeStego;
 import pw.stego.network.container.steganography.NoStego;
 import pw.stego.network.container.steganography.Steganography;
 import pw.stego.network.container.steganography.Stego;
-import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.proxy.tunnel.Tunnel;
 import pw.stego.network.proxy.util.CLI;
 
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 /**
  * Proxy class
@@ -65,6 +65,10 @@ public abstract class Proxy {
 
                 case "nostego":
                     algo = new NoStego();
+                    break;
+
+                case "barcodestego":
+                    algo = new BarcodeStego();
                     break;
 
                 default:
