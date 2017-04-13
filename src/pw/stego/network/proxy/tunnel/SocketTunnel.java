@@ -1,19 +1,19 @@
 package pw.stego.network.proxy.tunnel;
 
+import pw.stego.network.container.Container;
 import pw.stego.network.container.Sign;
-import pw.stego.network.container.steganography.Steganography;
+import pw.stego.network.steganography.Steganography;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.util.UUID;
 
 /**
  * Tunnel through socket
  * Created by lina on 21.12.16.
  */
 public class SocketTunnel<S extends Steganography> extends Tunnel<Socket, S> {
-    private final File container =  File.createTempFile(UUID.randomUUID().toString(), "stt");
     private final DataInputStream is;
     private final DataOutputStream os;
 
@@ -34,8 +34,8 @@ public class SocketTunnel<S extends Steganography> extends Tunnel<Socket, S> {
 
     @Override
     public void send(byte[] data) throws IOException {
-        File container = algo.insert(sign, data, getNextContainer());
-        byte[] stegoBytes = Files.readAllBytes(container.toPath());
+        Container container = algo.insert(sign, data, getNextContainer());
+        byte[] stegoBytes = container.getBytes();
 
         os.writeInt(stegoBytes.length);
         os.write(stegoBytes);
@@ -54,11 +54,9 @@ public class SocketTunnel<S extends Steganography> extends Tunnel<Socket, S> {
                 break;
         }
 
-        Files.write(container.toPath(), data);
-
+        Container container = algo.newContainer(data);
         if (!algo.isSignedWith(sign, container))
             throw new IOException("Wrong signature");
-
         return algo.extract(sign, container);
     }
 

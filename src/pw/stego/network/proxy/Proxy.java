@@ -2,10 +2,10 @@ package pw.stego.network.proxy;
 
 import pw.stego.network.container.Sign;
 import pw.stego.network.container.factory.ContainerFactory;
-import pw.stego.network.container.steganography.BarcodeStego;
-import pw.stego.network.container.steganography.NoStego;
-import pw.stego.network.container.steganography.Steganography;
-import pw.stego.network.container.steganography.Stego;
+import pw.stego.network.steganography.BarcodeStego;
+import pw.stego.network.steganography.NoStego;
+import pw.stego.network.steganography.Steganography;
+import pw.stego.network.steganography.Stego;
 import pw.stego.network.proxy.tunnel.Tunnel;
 import pw.stego.network.proxy.util.CLI;
 
@@ -20,6 +20,7 @@ import java.net.Socket;
  */
 public abstract class Proxy {
     private final ContainerFactory factory;
+
     final ServerSocket acceptor;
 
     final String ipOut;

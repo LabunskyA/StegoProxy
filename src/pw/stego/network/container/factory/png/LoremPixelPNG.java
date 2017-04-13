@@ -1,5 +1,7 @@
 package pw.stego.network.container.factory.png;
 
+import pw.stego.network.container.Container;
+import pw.stego.network.container.LosslessImageContainer;
 import pw.stego.network.container.factory.ContainerFactory;
 
 import javax.imageio.ImageIO;
@@ -14,7 +16,7 @@ import java.util.Random;
  * Random PNG containers from lorempixel.com
  * Created by lina on 05.01.17.
  */
-public class LoremPixelPNG implements ContainerFactory {
+public class LoremPixelPNG implements ContainerFactory<BufferedImage> {
     private final static String IMG_URL = "http://lorempixel.com/%X/%Y/";
     private final Random r = new Random();
 
@@ -22,7 +24,7 @@ public class LoremPixelPNG implements ContainerFactory {
      * @param params contains image resolution in int format in first two elements
      */
     @Override
-    public File createContainer(String[] params) throws IOException {
+    public Container<BufferedImage> createContainer(String[] params) throws IOException {
         String x = String.valueOf(r.nextInt(500) + 1);
         String y = String.valueOf(r.nextInt(500) + 1);
 
@@ -38,11 +40,7 @@ public class LoremPixelPNG implements ContainerFactory {
                     .replace("%Y", y)
             ));
 
-        File container = Files.createTempFile("random", ".png").toFile();
-        if (ImageIO.write(image, "PNG", container))
-            return container;
-
-        throw new IOException("Failed to write image");
+        return new LosslessImageContainer(image);
     }
 
     @Override

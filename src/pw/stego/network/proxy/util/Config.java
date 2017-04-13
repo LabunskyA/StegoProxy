@@ -1,9 +1,10 @@
 package pw.stego.network.proxy.util;
 
 import pw.stego.network.container.factory.ContainerFactory;
-import pw.stego.network.container.factory.EmptyFilesFactory;
+import pw.stego.network.container.factory.EmptyContainerFactory;
 import pw.stego.network.container.factory.png.LoremPixelPNG;
 import pw.stego.network.container.factory.png.RandomPNG;
+import pw.stego.network.container.factory.png.RobohashPNG;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,11 +30,14 @@ public class Config {
             case "randompng":
                 return new RandomPNG();
 
+            case "robohashpng":
+                return new RobohashPNG();
+
             case "lorempixelpng":
                 return new LoremPixelPNG();
 
-            case "emptyfilesfactory":
-                return new EmptyFilesFactory();
+            case "emptycontainersfactory":
+                return new EmptyContainerFactory();
 
             default:
                 System.out.println("Wrong factory");

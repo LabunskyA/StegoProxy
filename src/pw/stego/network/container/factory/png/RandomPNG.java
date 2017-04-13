@@ -1,8 +1,11 @@
 package pw.stego.network.container.factory.png;
 
+import pw.stego.network.container.Container;
+import pw.stego.network.container.LosslessImageContainer;
 import pw.stego.network.container.factory.ContainerFactory;
 import pw.stego.network.proxy.util.Config;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -14,21 +17,22 @@ import java.util.Random;
  * Handles all factories in png package at the same time
  * Created by lina on 18.01.17.
  */
-public class RandomPNG implements ContainerFactory {
+public class RandomPNG implements ContainerFactory<BufferedImage> {
     private static final String[] registeredNames = new String[]{
-            "lorempixelpng", "photonetrandompng"
+            "lorempixelpng", "robohashpng"
     };
 
     private final Random r = new Random();
-    private final List<ContainerFactory> factories = new LinkedList<>();
+    private final List<ContainerFactory<BufferedImage>> factories = new LinkedList<>();
 
     public RandomPNG() {
         for (String name : registeredNames)
+            //noinspection unchecked
             factories.add(Config.factoryByName(name));
     }
 
     @Override
-    public File createContainer(String[] params) throws IOException {
+    public Container<BufferedImage> createContainer(String[] params) throws IOException {
         return factories.get(r.nextInt(factories.size())).createContainer(params);
     }
 }

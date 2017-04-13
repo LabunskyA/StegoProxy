@@ -54,14 +54,16 @@ public class CLI {
 
         System.out.println("\"algorithm\" - steganography algorithm to use.");
         System.out.println("Different algorithms requires different \"container_factory\" variable values. Available algorithms for now:");
-        System.out.println("Stego - steganography in lossless images (like png, bmp, gif, etc);");
+        System.out.println("Stego - strong steganography in lossless images (like png, bmp, gif, etc);");
+        System.out.println("BarcodeStego - steganography, based on embendding different barcodes ");
         System.out.println("NoStego - plain data in files;");
 
         System.out.println("\"container_factory\" - factory which will produce containers to transmit data through tunnel.");
         System.out.println("Depends on \"algorithm\" variable, should produce compatible containers. Available factories:");
-        System.out.println("photonetrandompng - random png images from photo.net;");
+        System.out.println("randompng - random png from one of *png sources;");
+        System.out.println("robohashpng - random png images from robohash.org;");
         System.out.println("lorempixelpng - random png images from lorempixel.com;");
-        System.out.println("emptyfilesfactory - empty files in system temp folder;");
+        System.out.println("emptycontainersfactory - empty containers folder;");
     }
 
     public static Timestamp getTimestamp() {
