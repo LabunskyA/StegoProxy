@@ -1,41 +1,29 @@
 # StegoProxy
-Java library and application to create staganography proxy connections over the Internet.
+A Java library and an application to create staganography proxy connections over the Internet.
 
 # Usage
-Simply download client and/or server .jar files from releases page and run them with java 8 or later. <br>
+Simply download client and/or server .jar files from the releases page and run them with java 8 or later.
 Use -h or --help keys for more info.
 
-At you client machine you should use steganography <b>ProxyClient.jar</b> as proxy server. <br>
-It incapsulates your data into steganography channel and sends it to server with proxy server.
+At a client machine you should use steganography <b>ProxyClient.jar</b> as a proxy server.
+It incapsulates your data into the steganographic channel and sends it to server with an active proxy server.
 
-<b>ProxyServer.jar</b> should be running at external server and connected to real proxy server, like Squid. <br>
-It receives incapsulated data, decodes and retranslates in to real proxy, so data could reach it's real destination.
+<b>ProxyServer.jar</b> should be running at the external server and connected to the Real Proxy server, like Squid.
+It receives incapsulated data, decodes and retranslates in to the Real Proxy, so data could reach it's real destination.
 
 # How it works
-<b>StegoProxy</b> is consisted of ProxyServer and ProxyClient modules.
+<b>StegoProxy</b> is a combination of ProxyServer and ProxyClient modules.
 
-<b>ProxyClient</b> is client-side of StegoProxy. <br>
+<b>ProxyClient</b> is a client side of StegoProxy.
 You can interract with it like with any other proxies.
-It sends any incoming data throught steganography chanel to ProxyServer.
+It sends any incoming data throught the steganography chanel to ProxyServer.
 
-<b>StegoServer</b> is server-side of StegoProxy. <br> 
-It automaticaly interracting with incoming steganography data and resending it to Real Proxy (like Squid).
+<b>StegoServer</b> is a server side of StegoProxy.
+It automaticaly interracts with incoming steganography data and resends it to the Real Proxy (like Squid).
 
-<b>The scheme:</b> <br>
-Browser (or any other app) <---> ProxyClient [<--->] ProxyServer <---> Real Proxy
+<b>The scheme looks like this:</b> <br>
+Browser (or any other app) <-regular network-> ProxyClient [<-steganographic channel->] ProxyServer <-regular network-> Real Proxy
 
-# Contribute
-You can create your own steganography algorithms and containers factories. <br>
-All you need is to implement <b><a href="https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/steganography/Steganography.java">Steganography</a></b> and <b><a href="https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/util/ContainerFactory.java">ContainerFactory</a></b> interfaces.
-
-I'll be glad to see your pull requests!
-
-# Help project
-You can help or thank me with developing it in several ways:
-<ul>
-  <li><a href="https://www.paypal.me/labunsky">PayPal</a></li>
-  <li><a href="https://qiwi.me/stegoproxy">QIWI</a></li>
-  <li>BTC: 3PKGGwo5Ke2zm1yiBnuowZLEbmawz9YpJ8</li>
-  <li>ETH: 0x332b2f5e23e5f9e89d7531d7e5e95a7616ec8bb0</li>
-  <li>DOGE: DNpFyA9jSQYJyVYfLKetdNufYFgLimVezK</li>
-<ul>
+# Modify or contribute
+You can use your own steganography algorithms and container types. <br>
+All you need is to implement [Steganography](https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/steganography/Steganography.java) and [ContainerFactory](https://github.com/LabunskyA/StegoProxy/blob/master/src/pw/stego/network/container/util/ContainerFactory.java) interfaces.
